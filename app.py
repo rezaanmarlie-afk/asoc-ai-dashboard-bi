@@ -275,6 +275,37 @@ FIELDS = [
     "annual_value","implementation_cost","hours_saved","mttr_improvement","reuse_score"
 ]
 
+STATUS_OPTIONS = [
+    "AI Opportunity",
+    "Planned",
+    "Sandbox",
+    "Prototype",
+    "In Progress",
+    "Pilot",
+    "Production",
+    "Measured",
+    "At Risk",
+    "Paused",
+    "Retired",
+]
+
+def status_options_from_cases(cases=None):
+    values = list(STATUS_OPTIONS)
+    try:
+        for c in (cases if cases is not None else load_use_cases()):
+            st = str(c.get("status", "")).strip()
+            if st and st not in values:
+                values.append(st)
+    except Exception:
+        pass
+    return values
+
+def filter_cases_by_status(cases, status_filter=""):
+    status_filter = str(status_filter or "").strip()
+    if not status_filter or status_filter.lower() in ["all", "all statuses"]:
+        return cases
+    return [c for c in cases if str(c.get("status", "")).strip() == status_filter]
+
 REUSE_LEGEND = [
     {"score": 1, "level": "Team Reuse", "meaning": "Works for one team or local process only."},
     {"score": 2, "level": "Function Reuse", "meaning": "Reusable within one ASOC function."},
@@ -896,7 +927,7 @@ def build_benefits_admin_options():
         "business_units": ["ASOC"],
         "domains": dashboard_domains,
         "themes": vals("strategic_theme", ["Autonomous Operations", "Zero Touch Fulfilment", "Operational Efficiency", "Customer Experience", "Data Quality", "Platform Reuse", "AI Governance"]),
-        "statuses": vals("status", ["Planned", "Pilot", "Production", "Measured", "At Risk", "Paused", "Retired"]),
+        "statuses": vals("status", STATUS_OPTIONS),
         "stages": vals("stage", ["Idea", "Baseline", "Forecast", "Realised", "Validated", "Approved"]),
         "maturities": vals("maturity", ["Emerging", "Managed", "Scaled", "Optimised"]),
         "approval_statuses": vals("approval_status", ["Draft", "Submitted", "Manager Approved", "Finance Approved", "Executive Approved", "Rejected"]),
@@ -1344,8 +1375,9 @@ async def logout(request: Request):
     return RedirectResponse("/login", status_code=303)
 
 @app.get("/", response_class=HTMLResponse)
-async def dashboard(request: Request, user=Depends(require_login)):
-    cases = load_use_cases()
+async def dashboard(request: Request, status: str = "", user=Depends(require_login)):
+    all_cases = load_use_cases()
+    cases = filter_cases_by_status(all_cases, status)
     settings = load_settings()
     s = summary(cases, settings)
     return templates.TemplateResponse("index.html", {
@@ -1353,6 +1385,9 @@ async def dashboard(request: Request, user=Depends(require_login)):
         "summary": s,
         "gauges": gauge_values(s, settings),
         "use_cases": cases,
+        "all_use_cases_count": len(all_cases),
+        "selected_status": status,
+        "status_options": status_options_from_cases(all_cases),
         "settings": settings,
         "reuse_legend": REUSE_LEGEND,
         "user": user,
@@ -1380,7 +1415,8 @@ async def admin(request: Request, edit: str = "", error: str = "", user=Depends(
         "is_admin_user": role_of(user) == "admin",
         "is_super_admin": role_of(user) == "super_admin",
         "user": user,
-        "error": error
+        "error": error,
+        "status_options": status_options_from_cases(all_cases)
     })
 
 @app.get("/admin/use-cases", response_class=HTMLResponse)
@@ -1529,8 +1565,9 @@ async def api_use_cases(user=Depends(require_login)):
     return JSONResponse(load_use_cases())
 
 @app.get("/api/summary")
-async def api_summary(user=Depends(require_login)):
-    cases = load_use_cases()
+async def api_summary(status: str = "", user=Depends(require_login)):
+    all_cases = load_use_cases()
+    cases = filter_cases_by_status(all_cases, status)
     settings = load_settings()
     s = summary(cases, settings)
     return JSONResponse({

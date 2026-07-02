@@ -27,6 +27,6 @@
 {"ts": "2026-06-30T18:05:57Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "qwen3:14b"}}
 {"ts": "2026-06-30T18:06:04Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "qwen3:14b"}}
 {"ts": "2026-06-30T18:06:48Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "qwen3:14b"}}
-{"ts": "2026-07-02T14:34:02Z", "actor": "admin", "action": "csv_imported", "entity_type": "use_case", "entity_id": "bulk", "ip": "127.0.0.1", "details": {"imported": 3, "total": 19}}
-{"ts": "2026-07-02T14:36:24Z", "actor": "admin", "action": "use_case_saved", "entity_type": "use_case", "entity_id": "OSS-002", "ip": "127.0.0.1", "details": {"domain": "OSS", "new": false}}
-{"ts": "2026-07-02T14:37:38Z", "actor": "admin", "action": "use_case_saved", "entity_type": "use_case", "entity_id": "OSS-001", "ip": "127.0.0.1", "details": {"domain": "OSS", "new": false}}
+{"ts": "2026-07-02T20:33:15Z", "actor": "admin", "action": "mfa_setup_required", "entity_type": "user", "entity_id": "admin", "ip": "127.0.0.1", "details": {}}
+{"ts": "2026-07-02T20:34:08Z", "actor": "admin", "action": "mfa_setup_success", "entity_type": "user", "entity_id": "admin", "ip": "127.0.0.1", "details": {}}
+{"ts": "2026-07-02T20:34:08Z", "actor": "admin", "action": "login_success", "entity_type": "user", "entity_id": "admin", "ip": "127.0.0.1", "details": {"mfa": true}}

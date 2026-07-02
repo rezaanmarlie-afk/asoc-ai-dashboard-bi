@@ -53,7 +53,7 @@
 <div><label>Market</label><input name="market" value="{{ c.get('market','') }}"/></div>
 <div><label>Technical owner</label><input name="technical_owner" value="{{ c.get('technical_owner', user.display_name or user.username) }}"/></div>
 <div><label>Sponsor</label><input name="sponsor" value="{{ c.get('sponsor','') }}"/></div>
-<div><label>Status</label><select name="status"><option>{{ c.get('status','Sandbox') }}</option><option>Production</option><option>Prototype</option><option>Sandbox</option><option>In Progress</option><option>Planned</option></select></div>
+<div><label>Status</label><select name="status">{% for st in status_options %}<option value="{{ st }}" {% if st == c.get('status','Sandbox') %}selected{% endif %}>{{ st }}</option>{% endfor %}</select></div>
 <div><label>TMF level</label><input name="tmf_level" value="{{ c.get('tmf_level','L1') }}"/></div>
 <div><label>Impact</label><select name="impact"><option>{{ c.get('impact','Medium') }}</option><option>Low</option><option>Medium</option><option>High</option><option>Very High</option></select></div>
 <div><label>Frequency</label><input name="frequency" value="{{ c.get('frequency','') }}"/></div>

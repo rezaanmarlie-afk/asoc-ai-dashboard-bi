@@ -6,9 +6,9 @@
     "role": "super_admin",
     "password_hash": "pbkdf2_sha256$0b59c44ced666752b89208fdf390b68a$92840eed9ad2ff28133c848d27196ece750355602c3b9e32497d6688d393b563",
     "active": true,
-    "mfa_enabled": false,
-    "mfa_secret": "",
-    "mfa_confirmed_at": ""
+    "mfa_enabled": true,
+    "mfa_secret": "DDT5SPZZAYI6JHYSD6FYA6B7IXSBGADX",
+    "mfa_confirmed_at": "2026-07-02T20:34:08Z"
   },
   {
     "username": "fmadmin",
