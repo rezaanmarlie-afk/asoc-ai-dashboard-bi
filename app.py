@@ -306,6 +306,129 @@ def filter_cases_by_status(cases, status_filter=""):
         return cases
     return [c for c in cases if str(c.get("status", "")).strip() == status_filter]
 
+def filter_cases_for_dashboard(cases, status_filter="", exclude_statuses=None):
+    """Backward-compatible status filter used by older routes/API calls."""
+    filtered = filter_cases_by_status(cases, status_filter)
+    excludes = {str(x or "").strip() for x in (exclude_statuses or []) if str(x or "").strip()}
+    if excludes:
+        filtered = [c for c in filtered if str(c.get("status", "")).strip() not in excludes]
+    return filtered
+
+def default_portfolio_scope():
+    return {
+        "included_statuses": [],
+        "excluded_statuses": [],
+        "included_domains": [],
+        "included_markets": [],
+        "included_sponsors": [],
+        "included_owners": [],
+        "included_benefit_types": [],
+        "min_confidence": "",
+    }
+
+def get_portfolio_scope(settings=None):
+    settings = settings or load_settings()
+    scope = default_portfolio_scope()
+    saved = settings.get("portfolio_scope", {}) or {}
+    for k in scope:
+        v = saved.get(k, scope[k])
+        if isinstance(scope[k], list):
+            if isinstance(v, list):
+                scope[k] = [str(x).strip() for x in v if str(x).strip()]
+            elif str(v or "").strip():
+                scope[k] = [x.strip() for x in str(v).split(",") if x.strip()]
+        else:
+            scope[k] = str(v or "").strip()
+    return scope
+
+def _scope_set(scope, key):
+    return {str(x or "").strip() for x in scope.get(key, []) if str(x or "").strip()}
+
+def apply_portfolio_scope(cases, settings=None, override_status="", override_excluded_statuses=None):
+    """Single source of truth for dashboard/BI/PPT portfolio calculations."""
+    scope = get_portfolio_scope(settings)
+    included_statuses = _scope_set(scope, "included_statuses")
+    excluded_statuses = _scope_set(scope, "excluded_statuses")
+
+    # Optional URL query parameters are retained for compatibility, but the main dashboard
+    # now uses the saved Portfolio Scope by default.
+    if override_status:
+        included_statuses = {str(override_status).strip()}
+    if override_excluded_statuses:
+        excluded_statuses |= {str(x or "").strip() for x in override_excluded_statuses if str(x or "").strip()}
+
+    included_domains = _scope_set(scope, "included_domains")
+    included_markets = _scope_set(scope, "included_markets")
+    included_sponsors = _scope_set(scope, "included_sponsors")
+    included_owners = _scope_set(scope, "included_owners")
+    included_benefit_types = _scope_set(scope, "included_benefit_types")
+    min_confidence = as_number(scope.get("min_confidence", ""), None)
+
+    out = []
+    for c in cases:
+        status = str(c.get("status", "")).strip()
+        if included_statuses and status not in included_statuses:
+            continue
+        if excluded_statuses and status in excluded_statuses:
+            continue
+        if included_domains and str(c.get("domain", "")).strip() not in included_domains:
+            continue
+        if included_markets and str(c.get("market", "")).strip() not in included_markets:
+            continue
+        if included_sponsors and str(c.get("sponsor", "")).strip() not in included_sponsors:
+            continue
+        owner = str(c.get("technical_owner", "") or c.get("manager", "") or c.get("owner", "")).strip()
+        if included_owners and owner not in included_owners:
+            continue
+        if included_benefit_types and str(c.get("benefit_type", "")).strip() not in included_benefit_types:
+            continue
+        if min_confidence not in [None, ""]:
+            conf = c.get("benefit_confidence", "")
+            conf_num = as_number(conf, None)
+            if conf_num is None:
+                # Treat textual confidence conservatively.
+                conf_map = {"low": 40, "medium": 65, "high": 85}
+                conf_num = conf_map.get(str(conf).strip().lower(), 0)
+            if conf_num < min_confidence:
+                continue
+        out.append(c)
+    return out
+
+def portfolio_scope_label(settings=None):
+    scope = get_portfolio_scope(settings)
+    parts = []
+    if scope.get("included_statuses"):
+        parts.append("Status: " + ", ".join(scope["included_statuses"]))
+    if scope.get("excluded_statuses"):
+        parts.append("Excluding: " + ", ".join(scope["excluded_statuses"]))
+    if scope.get("included_domains"):
+        parts.append("Domains: " + ", ".join(scope["included_domains"]))
+    if scope.get("included_markets"):
+        parts.append("Markets: " + ", ".join(scope["included_markets"]))
+    if scope.get("included_sponsors"):
+        parts.append("Sponsors: " + ", ".join(scope["included_sponsors"]))
+    if scope.get("included_owners"):
+        parts.append("Owners: " + ", ".join(scope["included_owners"]))
+    if scope.get("included_benefit_types"):
+        parts.append("Benefits: " + ", ".join(scope["included_benefit_types"]))
+    if scope.get("min_confidence"):
+        parts.append("Confidence ≥ " + str(scope.get("min_confidence")))
+    return " | ".join(parts) if parts else "All statuses, domains, markets, sponsors and benefit types included"
+
+def portfolio_scope_options(cases=None):
+    cases = cases if cases is not None else load_use_cases()
+    def vals(field):
+        return sorted({str(c.get(field, "")).strip() for c in cases if str(c.get(field, "")).strip()})
+    owners = sorted({str(c.get("technical_owner", "") or c.get("manager", "") or c.get("owner", "")).strip() for c in cases if str(c.get("technical_owner", "") or c.get("manager", "") or c.get("owner", "")).strip()})
+    return {
+        "statuses": status_options_from_cases(cases),
+        "domains": vals("domain"),
+        "markets": vals("market"),
+        "sponsors": vals("sponsor"),
+        "owners": owners,
+        "benefit_types": vals("benefit_type"),
+    }
+
 REUSE_LEGEND = [
     {"score": 1, "level": "Team Reuse", "meaning": "Works for one team or local process only."},
     {"score": 2, "level": "Function Reuse", "meaning": "Reusable within one ASOC function."},
@@ -613,6 +736,11 @@ def load_settings():
     settings.setdefault("targets", {})
     for year in ["FY27","FY28","FY29"]:
         settings["targets"].setdefault(year, {})
+    settings.setdefault("portfolio_scope", default_portfolio_scope())
+    # Merge in new Portfolio Scope keys without disturbing existing saved choices.
+    merged_scope = default_portfolio_scope()
+    merged_scope.update(settings.get("portfolio_scope", {}) or {})
+    settings["portfolio_scope"] = merged_scope
     return settings
 
 def _clean_numeric_text(v):
@@ -945,6 +1073,34 @@ def _row_matches_filters(row, filters):
             return False
     return True
 
+def _row_matches_portfolio_scope(row, settings=None):
+    """Apply the saved Portfolio Scope to BI records using equivalent BI fields."""
+    scope = get_portfolio_scope(settings)
+    def sset(k):
+        return _scope_set(scope, k)
+    status = str(row.get("status", "")).strip()
+    if sset("included_statuses") and status not in sset("included_statuses"):
+        return False
+    if sset("excluded_statuses") and status in sset("excluded_statuses"):
+        return False
+    if sset("included_domains") and str(row.get("domain", "")).strip() not in sset("included_domains"):
+        return False
+    if sset("included_markets") and str(row.get("market", "")).strip() not in sset("included_markets"):
+        return False
+    sponsor = str(row.get("executive_sponsor", "") or row.get("sponsor", "")).strip()
+    if sset("included_sponsors") and sponsor not in sset("included_sponsors"):
+        return False
+    owner = str(row.get("owner", "") or row.get("product_owner", "")).strip()
+    if sset("included_owners") and owner not in sset("included_owners"):
+        return False
+    benefit_type = str(row.get("benefit_category", "") or row.get("benefit", "")).strip()
+    if sset("included_benefit_types") and benefit_type not in sset("included_benefit_types"):
+        return False
+    min_confidence = as_number(scope.get("min_confidence", ""), None)
+    if min_confidence not in [None, ""] and as_number(row.get("confidence", 0), 0) < min_confidence:
+        return False
+    return True
+
 def _portfolio_derived_bi_rows():
     """Create meaningful BI rows directly from the dashboard use-case register when no BI history exists."""
     cases = load_use_cases()
@@ -997,6 +1153,7 @@ def build_benefits_intelligence(filters=None):
     if not rows:
         rows = _portfolio_derived_bi_rows()
     filtered_rows = [r for r in rows if _row_matches_filters(r, filters)]
+    filtered_rows = [r for r in filtered_rows if _row_matches_portfolio_scope(r, settings)]
     grouped = defaultdict(list)
     for r in filtered_rows:
         grouped[r.get("benefit", "Benefit")].append(r)
@@ -1377,8 +1534,11 @@ async def logout(request: Request):
 @app.get("/", response_class=HTMLResponse)
 async def dashboard(request: Request, status: str = "", user=Depends(require_login)):
     all_cases = load_use_cases()
-    cases = filter_cases_by_status(all_cases, status)
     settings = load_settings()
+    # Dashboard calculations are governed by the saved Portfolio Scope.
+    # Query params remain accepted for backward compatibility, but the landing page no longer exposes them.
+    exclude_statuses = request.query_params.getlist("exclude_status")
+    cases = apply_portfolio_scope(all_cases, settings, override_status=status, override_excluded_statuses=exclude_statuses)
     s = summary(cases, settings)
     return templates.TemplateResponse("index.html", {
         "request": request,
@@ -1387,7 +1547,10 @@ async def dashboard(request: Request, status: str = "", user=Depends(require_log
         "use_cases": cases,
         "all_use_cases_count": len(all_cases),
         "selected_status": status,
+        "excluded_statuses": exclude_statuses,
         "status_options": status_options_from_cases(all_cases),
+        "portfolio_scope": get_portfolio_scope(settings),
+        "portfolio_scope_label": portfolio_scope_label(settings),
         "settings": settings,
         "reuse_legend": REUSE_LEGEND,
         "user": user,
@@ -1445,8 +1608,13 @@ async def save_use_case(request: Request, user=Depends(require_admin)):
         if c.get("id") == item["id"]:
             if not user_can_modify(user, c):
                 return redirect_with_error("/admin/use-cases", "You can only modify use cases you created, own, or that are in your assigned domain(s)")
-            item["created_by"] = c.get("created_by") or user.get("username")
-            item["created_at"] = c.get("created_at") or item["updated_at"]
+            # Preserve original creator metadata on edit. Do not change ownership/audit identity
+            # just because another authorised user changed status or other fields.
+            item["created_by"] = c.get("created_by", "")
+            item["created_at"] = c.get("created_at", "")
+            # Preserve the existing technical owner if the submitted form accidentally sends it blank.
+            if not str(item.get("technical_owner", "")).strip():
+                item["technical_owner"] = c.get("technical_owner", "")
             cases[i] = item
             found = True
             break
@@ -1468,6 +1636,51 @@ async def delete_use_case(request: Request, id: str = Form(...), user=Depends(re
     save_use_cases(cases)
     _audit_event(request, user.get("username"), "use_case_deleted", "use_case", id, {"domain": target.get("domain") if target else ""})
     return RedirectResponse("/admin/use-cases", status_code=303)
+
+@app.get("/admin/portfolio-scope", response_class=HTMLResponse)
+async def portfolio_scope_page(request: Request, user=Depends(require_admin)):
+    cases = load_use_cases()
+    settings = load_settings()
+    return templates.TemplateResponse("portfolio_scope.html", {
+        "request": request,
+        "user": user,
+        "settings": settings,
+        "scope": get_portfolio_scope(settings),
+        "scope_label": portfolio_scope_label(settings),
+        "options": portfolio_scope_options(cases),
+        "total_cases": len(cases),
+        "scoped_cases": len(apply_portfolio_scope(cases, settings)),
+    })
+
+@app.post("/admin/portfolio-scope")
+async def save_portfolio_scope(request: Request, user=Depends(require_admin)):
+    form = await request.form()
+    settings = load_settings()
+    scope = default_portfolio_scope()
+    multimap = {
+        "included_statuses": "included_statuses",
+        "excluded_statuses": "excluded_statuses",
+        "included_domains": "included_domains",
+        "included_markets": "included_markets",
+        "included_sponsors": "included_sponsors",
+        "included_owners": "included_owners",
+        "included_benefit_types": "included_benefit_types",
+    }
+    for field, form_name in multimap.items():
+        scope[field] = [str(x).strip() for x in form.getlist(form_name) if str(x).strip()]
+    scope["min_confidence"] = str(form.get("min_confidence", "")).strip()
+    settings["portfolio_scope"] = scope
+    save_json(SETTINGS_FILE, settings)
+    _audit_event(request, user.get("username"), "portfolio_scope_saved", "settings", "portfolio_scope", {"scope": scope})
+    return RedirectResponse("/admin/portfolio-scope", status_code=303)
+
+@app.post("/admin/portfolio-scope/reset")
+async def reset_portfolio_scope(request: Request, user=Depends(require_admin)):
+    settings = load_settings()
+    settings["portfolio_scope"] = default_portfolio_scope()
+    save_json(SETTINGS_FILE, settings)
+    _audit_event(request, user.get("username"), "portfolio_scope_reset", "settings", "portfolio_scope")
+    return RedirectResponse("/admin/portfolio-scope", status_code=303)
 
 @app.post("/admin/save-settings")
 async def save_settings(request: Request, user=Depends(require_super_admin)):
@@ -1565,14 +1778,16 @@ async def api_use_cases(user=Depends(require_login)):
     return JSONResponse(load_use_cases())
 
 @app.get("/api/summary")
-async def api_summary(status: str = "", user=Depends(require_login)):
+async def api_summary(request: Request, status: str = "", user=Depends(require_login)):
     all_cases = load_use_cases()
-    cases = filter_cases_by_status(all_cases, status)
     settings = load_settings()
+    exclude_statuses = request.query_params.getlist("exclude_status")
+    cases = apply_portfolio_scope(all_cases, settings, override_status=status, override_excluded_statuses=exclude_statuses)
     s = summary(cases, settings)
     return JSONResponse({
         "summary": s,
         "gauges": gauge_values(s, settings),
+        "portfolio_scope_label": portfolio_scope_label(settings),
         "value_by_domain": group_by(cases, "domain", "annual_value"),
         "hours_by_domain": group_by(cases, "domain", "hours_saved"),
         "value_by_sponsor": group_by(cases, "sponsor", "annual_value"),
@@ -1945,8 +2160,8 @@ def chunks(items, size):
 async def export_pptx(request: Request, theme: str = "dark", user=Depends(require_login)):
     _audit_event(request, user.get("username"), "export_pptx", "export", "pptx", {"theme": theme})
     apply_ppt_theme(theme)
-    cases = load_use_cases()
     settings = load_settings()
+    cases = apply_portfolio_scope(load_use_cases(), settings)
     s = summary(cases, settings)
     gauges = gauge_values(s, settings)
     active_year = gauges.get("year", settings.get("active_year", "FY27"))

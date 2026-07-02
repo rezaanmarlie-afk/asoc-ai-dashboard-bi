@@ -27,6 +27,8 @@
 {"ts": "2026-06-30T18:05:57Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "qwen3:14b"}}
 {"ts": "2026-06-30T18:06:04Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "qwen3:14b"}}
 {"ts": "2026-06-30T18:06:48Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "qwen3:14b"}}
-{"ts": "2026-07-02T20:33:15Z", "actor": "admin", "action": "mfa_setup_required", "entity_type": "user", "entity_id": "admin", "ip": "127.0.0.1", "details": {}}
-{"ts": "2026-07-02T20:34:08Z", "actor": "admin", "action": "mfa_setup_success", "entity_type": "user", "entity_id": "admin", "ip": "127.0.0.1", "details": {}}
-{"ts": "2026-07-02T20:34:08Z", "actor": "admin", "action": "login_success", "entity_type": "user", "entity_id": "admin", "ip": "127.0.0.1", "details": {"mfa": true}}
+{"ts": "2026-07-02T21:22:33Z", "actor": "admin", "action": "use_case_saved", "entity_type": "use_case", "entity_id": "CM-001", "ip": "127.0.0.1", "details": {"domain": "Configuration Management", "new": false}}
+{"ts": "2026-07-02T21:22:55Z", "actor": "admin", "action": "use_case_saved", "entity_type": "use_case", "entity_id": "CM-002", "ip": "127.0.0.1", "details": {"domain": "Configuration Management", "new": false}}
+{"ts": "2026-07-02T21:23:29Z", "actor": "admin", "action": "portfolio_scope_saved", "entity_type": "settings", "entity_id": "portfolio_scope", "ip": "127.0.0.1", "details": {"scope": {"included_statuses": [], "excluded_statuses": ["AI Opportunity"], "included_domains": [], "included_markets": [], "included_sponsors": [], "included_owners": [], "included_benefit_types": [], "min_confidence": ""}}}
+{"ts": "2026-07-02T21:25:04Z", "actor": "admin", "action": "use_case_saved", "entity_type": "use_case", "entity_id": "CM-003", "ip": "127.0.0.1", "details": {"domain": "Configuration Management", "new": false}}
+{"ts": "2026-07-02T21:25:31Z", "actor": "admin", "action": "use_case_saved", "entity_type": "use_case", "entity_id": "CM-006", "ip": "127.0.0.1", "details": {"domain": "Configuration Management", "new": false}}
