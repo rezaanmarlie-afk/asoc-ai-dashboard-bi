@@ -264,7 +264,7 @@
     "market": "ZA ASOC CM TX",
     "technical_owner": "Lance Zietsman",
     "sponsor": "Craig Clarke",
-    "status": "AI Opportunity",
+    "status": "Sandbox",
     "tmf_level": "L3",
     "impact": "High",
     "frequency": "On demand",
@@ -272,11 +272,7 @@
     "implementation_cost": 550000,
     "hours_saved": 2400,
     "mttr_improvement": 0,
-    "reuse_score": 4,
-    "updated_by": "admin",
-    "updated_at": "2026-07-02T21:22:33Z",
-    "created_by": "",
-    "created_at": ""
+    "reuse_score": 4
   },
   {
     "id": "CM-002",
@@ -293,7 +289,7 @@
     "market": "ZA ASOC CM TX",
     "technical_owner": "Lance Zietsman",
     "sponsor": "Craig Clarke",
-    "status": "AI Opportunity",
+    "status": "Sandbox",
     "tmf_level": "L3",
     "impact": "High",
     "frequency": "On demand",
@@ -301,11 +297,7 @@
     "implementation_cost": 500000,
     "hours_saved": 2100,
     "mttr_improvement": 7,
-    "reuse_score": 4,
-    "updated_by": "admin",
-    "updated_at": "2026-07-02T21:22:55Z",
-    "created_by": "",
-    "created_at": ""
+    "reuse_score": 4
   },
   {
     "id": "CM-003",
@@ -322,7 +314,7 @@
     "market": "ZA ASOC CM RAN",
     "technical_owner": "Iedereez Mohamed",
     "sponsor": "Craig Clarke",
-    "status": "AI Opportunity",
+    "status": "Sandbox",
     "tmf_level": "L3-L4",
     "impact": "Very High",
     "frequency": "On demand",
@@ -330,11 +322,7 @@
     "implementation_cost": 1000000,
     "hours_saved": 5200,
     "mttr_improvement": 4,
-    "reuse_score": 5,
-    "updated_by": "admin",
-    "updated_at": "2026-07-02T21:25:04Z",
-    "created_by": "",
-    "created_at": ""
+    "reuse_score": 5
   },
   {
     "id": "CM-004",
@@ -401,7 +389,7 @@
     "market": "ZA ASOC CM RAN",
     "technical_owner": "CM RAN Team",
     "sponsor": "Craig Clarke",
-    "status": "AI Opportunity",
+    "status": "Planned",
     "tmf_level": "L4",
     "impact": "Very High",
     "frequency": "Alarm event",
@@ -409,11 +397,7 @@
     "implementation_cost": 1300000,
     "hours_saved": 6000,
     "mttr_improvement": 15,
-    "reuse_score": 5,
-    "updated_by": "admin",
-    "updated_at": "2026-07-02T21:25:31Z",
-    "created_by": "",
-    "created_at": ""
+    "reuse_score": 5
   },
   {
     "id": "OSS-001",

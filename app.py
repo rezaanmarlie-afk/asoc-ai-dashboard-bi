@@ -963,15 +963,31 @@ def _format_benefit_value(value, unit):
     except Exception:
         value = 0
     unit = unit or ""
-    if unit.upper() == "R":
+    unit_txt = str(unit).strip()
+    if unit_txt.upper() in ["R", "ZAR", "RAND", "RANDS"]:
         if abs(value) >= 1000000:
             return f"R{value/1000000:,.1f}m"
         return f"R{value:,.0f}"
-    if unit == "%":
+    if unit_txt == "%":
         return f"{value:,.1f}%"
-    if unit.lower() in ["hrs", "hours"]:
+    if unit_txt.lower() in ["hrs", "hours", "hour"]:
         return f"{value:,.0f} hrs"
-    return f"{value:,.1f} {unit}".strip()
+    return f"{value:,.1f} {unit_txt}".strip()
+
+def _is_money_benefit(row_or_benefit):
+    unit = str(row_or_benefit.get("unit", "") or "").strip().upper()
+    name = str(row_or_benefit.get("benefit", row_or_benefit.get("name", "")) or "").strip().lower()
+    category = str(row_or_benefit.get("benefit_category", "") or "").strip().lower()
+    return unit in ["R", "ZAR", "RAND", "RANDS"] or category == "financial" or any(x in name for x in ["annual benefit", "cost", "revenue", "financial", "avoidance", "value"])
+
+def _is_hours_benefit(row_or_benefit):
+    unit = str(row_or_benefit.get("unit", "") or "").strip().lower()
+    name = str(row_or_benefit.get("benefit", row_or_benefit.get("name", "")) or "").strip().lower()
+    return unit in ["hrs", "hours", "hour"] or any(x in name for x in ["hour", "productivity", "capacity returned"])
+
+def _is_mttr_benefit(row_or_benefit):
+    name = str(row_or_benefit.get("benefit", row_or_benefit.get("name", "")) or "").strip().lower()
+    return "mttr" in name
 
 def _simple_forecast(values, periods=3):
     vals = [as_number(v, 0) for v in values]
@@ -1145,22 +1161,29 @@ def _portfolio_derived_bi_rows():
     return [normalize_benefit_row(r) for r in rows]
 
 def build_benefits_intelligence(filters=None):
+    """Executive Benefits Intelligence cockpit.
+
+    This is intentionally driven from one filtered BI dataset and the scoped AI use-case
+    register so every executive card, domain view and trend chart reconciles to the same scope.
+    """
     filters = filters or {}
     rows = [normalize_benefit_row(r) for r in load_benefit_history()]
     rows = [_sync_bi_row_to_use_case(r) for r in rows]
-    cases = load_use_cases()
+    all_cases = load_use_cases()
     settings = load_settings()
+    scoped_cases = apply_portfolio_scope(all_cases, settings)
     if not rows:
         rows = _portfolio_derived_bi_rows()
     filtered_rows = [r for r in rows if _row_matches_filters(r, filters)]
     filtered_rows = [r for r in filtered_rows if _row_matches_portfolio_scope(r, settings)]
+
     grouped = defaultdict(list)
     for r in filtered_rows:
         grouped[r.get("benefit", "Benefit")].append(r)
+
     benefits = []
     for benefit, items in grouped.items():
         items = sorted(items, key=lambda x: benefit_period_key(x.get("period")))
-        # Aggregate duplicate periods across use cases/domains for portfolio benefit trend.
         period_map = defaultdict(lambda: {"actual": 0, "target": 0})
         for x in items:
             pk = x.get("period")
@@ -1171,7 +1194,7 @@ def build_benefits_intelligence(filters=None):
         targets = [round(period_map[p]["target"], 2) for p in periods]
         unit = next((x.get("unit") for x in reversed(items) if x.get("unit")), "")
         current = actuals[-1] if actuals else 0
-        previous = actuals[-2] if len(actuals) > 1 else sum(as_number(x.get("previous_period", 0)) for x in items if x.get("period") == periods[-1]) if periods else current
+        previous = actuals[-2] if len(actuals) > 1 else (sum(as_number(x.get("previous_period", 0)) for x in items if periods and x.get("period") == periods[-1]) if periods else current)
         movement = current - previous
         movement_pct = round(safe_div(movement, previous) * 100, 1) if previous else (100 if current else 0)
         target = targets[-1] if targets else 0
@@ -1182,18 +1205,22 @@ def build_benefits_intelligence(filters=None):
         latest = latest_items[-1] if latest_items else (items[-1] if items else {})
         confidence_vals = [as_number(x.get("confidence", 0)) for x in latest_items if as_number(x.get("confidence", 0))]
         confidence = round(sum(confidence_vals) / len(confidence_vals), 0) if confidence_vals else as_number(latest.get("confidence", 0))
-        risk_text = latest.get("risks", "") or ("Target gap requires management attention." if target and target_pct < 70 else "No material risk captured.")
+        risk_text = latest.get("risks", "") or ("Below 70% of target; management attention required." if target and target_pct < 70 else "No material risk captured.")
         opportunity_text = latest.get("opportunities", "") or "Scale reusable capability to additional ASOC domains where applicable."
-        analysis = f"{benefit} is {status.lower()} at {_format_benefit_value(current, unit)} across ASOC."
+        analysis = f"{benefit} is {status.lower()} at {_format_benefit_value(current, unit)}."
+        if previous:
+            analysis += f" Movement vs previous period is {movement_pct:+.1f}%."
         if target:
-            analysis += f" It is tracking at {target_pct}% of target ({_format_benefit_value(target, unit)})."
+            gap = current - target
+            analysis += f" It is {target_pct:.1f}% of target with a gap of {_format_benefit_value(gap, unit)}."
         if confidence:
-            analysis += f" Confidence is {confidence:.0f}%."
+            analysis += f" Evidence confidence is {confidence:.0f}%."
         contributors_map = defaultdict(float)
         contributor_meta = {}
         for x in items:
             key = x.get("ai_use_case_id") or x.get("ai_use_case_name") or x.get("domain")
-            if not key: continue
+            if not key:
+                continue
             contributors_map[key] += as_number(x.get("actual", 0))
             contributor_meta[key] = {"id": x.get("ai_use_case_id"), "name": x.get("ai_use_case_name") or key, "domain": x.get("domain")}
         contributors = [{**contributor_meta[k], "value": v} for k, v in contributors_map.items()]
@@ -1206,23 +1233,34 @@ def build_benefits_intelligence(filters=None):
             "opportunity": opportunity_text, "latest": latest, "row_count": len(items)
         })
     benefits = sorted(benefits, key=lambda b: (b.get("target_pct", 0) < 70, -abs(b.get("current", 0))))
-    # Domain tracking across the exact dashboard domain taxonomy.
-    domain_map = defaultdict(lambda: {"records": 0, "financial": 0, "hours": 0, "mttr": 0, "use_cases": set(), "owners": set()})
+
+    # Domain tracking across dashboard taxonomy and filtered BI rows.
+    domain_map = defaultdict(lambda: {"records": 0, "financial": 0, "hours": 0, "mttr_values": [], "use_cases": set(), "owners": set(), "opportunities": 0, "production": 0})
+    for c in scoped_cases:
+        d = c.get("domain") or "Unassigned"
+        domain_map[d]["use_cases"].add(c.get("id") or c.get("name") or "")
+        if str(c.get("status", "")).strip() == "AI Opportunity":
+            domain_map[d]["opportunities"] += 1
+        if str(c.get("status", "")).strip() == "Production":
+            domain_map[d]["production"] += 1
     for r in filtered_rows:
         d = r.get("domain") or "Unassigned"
         domain_map[d]["records"] += 1
         domain_map[d]["use_cases"].add(r.get("ai_use_case_id") or r.get("ai_use_case_name") or "")
-        if r.get("owner"): domain_map[d]["owners"].add(r.get("owner"))
-        b = str(r.get("benefit", "")).lower(); val = as_number(r.get("actual", 0))
-        if r.get("unit") == "R" or "benefit" in b or "cost" in b or "revenue" in b:
+        if r.get("owner"):
+            domain_map[d]["owners"].add(r.get("owner"))
+        val = as_number(r.get("actual", 0))
+        if _is_money_benefit(r):
             domain_map[d]["financial"] += val
-        if r.get("unit") in ["hrs", "hours"] or "productivity" in b or "hour" in b:
+        if _is_hours_benefit(r):
             domain_map[d]["hours"] += val
-        if "mttr" in b:
-            domain_map[d]["mttr"] += val
+        if _is_mttr_benefit(r):
+            domain_map[d]["mttr_values"].append(val)
+
     domain_summary = []
-    for d in sorted({c.get("domain") for c in cases if c.get("domain")} | set(domain_map.keys())):
+    for d in sorted({c.get("domain") for c in all_cases if c.get("domain")} | set(domain_map.keys())):
         m = domain_map[d]
+        mttr_avg = round(sum(m["mttr_values"]) / len(m["mttr_values"]), 1) if m["mttr_values"] else 0
         domain_summary.append({
             "domain": d,
             "records": m["records"],
@@ -1231,25 +1269,72 @@ def build_benefits_intelligence(filters=None):
             "financial_fmt": _format_benefit_value(m["financial"], "R"),
             "hours": m["hours"],
             "hours_fmt": _format_benefit_value(m["hours"], "hrs"),
-            "mttr": round(m["mttr"], 1),
+            "mttr": mttr_avg,
             "owners": ", ".join(sorted(m["owners"])[:3]),
+            "opportunities": m["opportunities"],
+            "production": m["production"],
         })
-    total_actual = sum(as_number(b.get("current", 0)) for b in benefits if b.get("unit") == "R")
-    total_target = sum(as_number(b.get("target", 0)) for b in benefits if b.get("unit") == "R")
+    domain_summary = sorted(domain_summary, key=lambda d: (d["financial"], d["hours"], d["use_cases"]), reverse=True)
+
+    total_financial = sum(as_number(b.get("current", 0)) for b in benefits if _is_money_benefit(b))
+    total_financial_target = sum(as_number(b.get("target", 0)) for b in benefits if _is_money_benefit(b))
+    total_hours = sum(as_number(b.get("current", 0)) for b in benefits if _is_hours_benefit(b))
+    mttr_values = [as_number(b.get("current", 0)) for b in benefits if _is_mttr_benefit(b) and as_number(b.get("current", 0))]
+    avg_mttr = round(sum(mttr_values) / len(mttr_values), 1) if mttr_values else 0
+    production_count = sum(1 for c in scoped_cases if str(c.get("status", "")).strip() == "Production")
+    opportunity_count = sum(1 for c in scoped_cases if str(c.get("status", "")).strip() == "AI Opportunity")
+    total_use_cases = len(scoped_cases)
     total_improving = sum(1 for b in benefits if b["status"] == "Improving")
     at_risk = [b for b in benefits if b["status"] == "Declining" or (b.get("target") and b.get("target_pct", 0) < 70)]
     approved = sum(1 for r in filtered_rows if "approved" in str(r.get("approval_status", "")).lower())
+    top_domain = next((d for d in domain_summary if d.get("financial") or d.get("hours") or d.get("use_cases")), {"domain": "ASOC", "financial_fmt": "R0", "hours_fmt": "0 hrs"})
+    top_benefit = benefits[0] if benefits else {"name": "No benefits", "formatted_current": "R0", "status": "Flat"}
+    target_pct = round(safe_div(total_financial, total_financial_target) * 100, 1) if total_financial_target else 0
+    health = "Healthy" if not at_risk and (not total_financial_target or target_pct >= 85) else "Watch" if len(at_risk) <= 2 else "At Risk"
+
+    def _case_value(c):
+        return as_number(c.get("annual_value", 0))
+    top_use_cases = []
+    for c in sorted(scoped_cases, key=_case_value, reverse=True)[:10]:
+        top_use_cases.append({
+            "id": c.get("id", ""), "name": c.get("name", ""), "domain": c.get("domain", ""), "status": c.get("status", ""),
+            "owner": c.get("technical_owner", ""), "sponsor": c.get("sponsor", ""), "value": _case_value(c),
+            "value_fmt": _format_benefit_value(_case_value(c), "R"), "hours": as_number(c.get("hours_saved", 0)),
+            "hours_fmt": _format_benefit_value(c.get("hours_saved", 0), "hrs")
+        })
+    opportunity_pipeline = []
+    for c in [x for x in scoped_cases if str(x.get("status", "")).strip() == "AI Opportunity"][:10]:
+        opportunity_pipeline.append({"id": c.get("id", ""), "name": c.get("name", ""), "domain": c.get("domain", ""), "sponsor": c.get("sponsor", ""), "value_fmt": _format_benefit_value(c.get("annual_value", 0), "R")})
+
     narrative = {
-        "headline": f"ASOC is tracking {len(benefits)} benefit categories across {len(domain_summary)} dashboard domains.",
-        "summary": "Benefits Intelligence is now linked to the AI use-case register, using the same ASOC domain taxonomy and attributing each benefit back to contributing AI use cases.",
+        "headline": f"ASOC AI benefits portfolio is {health.lower()} with {_format_benefit_value(total_financial, 'R')} annualised value and {_format_benefit_value(total_hours, 'hrs')} returned.",
+        "summary": f"The current scope covers {total_use_cases} AI use cases across {len([d for d in domain_summary if d['use_cases']])} ASOC domains. {top_domain['domain']} is the leading domain with {top_domain['financial_fmt']} and {top_domain['hours_fmt']}. The strongest benefit category is {top_benefit['name']} at {top_benefit['formatted_current']}.",
         "risk": "No immediate benefit risk detected." if not at_risk else f"{len(at_risk)} benefit category/categories need attention: " + ", ".join(b["name"] for b in at_risk[:3]) + ".",
-        "total_actual": _format_benefit_value(total_actual, "R"),
-        "total_target": _format_benefit_value(total_target, "R") if total_target else "No target",
+        "next_action": "Focus the next portfolio review on converting AI Opportunities into funded delivery and scaling reusable production use cases across domains." if opportunity_count else "Focus the next portfolio review on scaling the highest-value production use cases and closing benefit evidence gaps.",
+        "total_actual": _format_benefit_value(total_financial, "R"),
+        "total_target": _format_benefit_value(total_financial_target, "R") if total_financial_target else "No target",
         "approved_rows": approved,
         "row_count": len(filtered_rows),
         "improving_count": total_improving,
+        "health": health,
+        "target_pct": target_pct,
     }
-    return {"benefits": benefits, "rows": filtered_rows, "all_rows": rows, "domain_summary": domain_summary, "narrative": narrative, "filters": filters, "options": build_benefits_admin_options()}
+    executive_kpis = {
+        "portfolio_value": _format_benefit_value(total_financial, "R"),
+        "portfolio_target_pct": target_pct,
+        "hours_returned": _format_benefit_value(total_hours, "hrs"),
+        "mttr_improvement": f"{avg_mttr:,.1f}%" if avg_mttr else "0.0%",
+        "production_use_cases": production_count,
+        "ai_opportunities": opportunity_count,
+        "portfolio_health": health,
+        "improving": f"{total_improving} of {len(benefits)}",
+    }
+    return {
+        "benefits": benefits, "rows": filtered_rows, "all_rows": rows, "domain_summary": domain_summary,
+        "narrative": narrative, "filters": filters, "options": build_benefits_admin_options(),
+        "scope_label": portfolio_scope_label(settings), "executive_kpis": executive_kpis,
+        "top_use_cases": top_use_cases, "opportunity_pipeline": opportunity_pipeline
+    }
 
 def gauge_values(s, settings):
     year, targets = active_targets(settings)

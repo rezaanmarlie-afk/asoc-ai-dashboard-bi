@@ -58,17 +58,5 @@
       "name": "Digital Twin",
       "description": "Future simulation and predictive operations layer."
     }
-  ],
-  "portfolio_scope": {
-    "included_statuses": [],
-    "excluded_statuses": [
-      "AI Opportunity"
-    ],
-    "included_domains": [],
-    "included_markets": [],
-    "included_sponsors": [],
-    "included_owners": [],
-    "included_benefit_types": [],
-    "min_confidence": ""
-  }
+  ]
 }
