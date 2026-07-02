@@ -1,0 +1,13 @@
+benefit,period,actual,target,unit,owner,commentary
+Annual benefits realised,2026-01,2500000,30000000,R,ASOC,"Initial realised value from AI portfolio."
+Annual benefits realised,2026-02,4200000,30000000,R,ASOC,"Growth driven by automation adoption."
+Annual benefits realised,2026-03,6800000,30000000,R,ASOC,"Additional production use cases added."
+Hours returned,2026-01,800,15000,hrs,ASOC,"Early productivity benefit captured."
+Hours returned,2026-02,1450,15000,hrs,ASOC,"Manual effort reduction increasing."
+Hours returned,2026-03,2300,15000,hrs,ASOC,"Automation reuse improving."
+Average MTTR improvement,2026-01,12,50,%,ASOC,"Initial impact from assisted diagnostics."
+Average MTTR improvement,2026-02,19,50,%,ASOC,"Incident triage is improving."
+Average MTTR improvement,2026-03,24,50,%,ASOC,"Trend positive but still below target."
+Portfolio ROI,2026-01,18,100,%,ASOC,"Portfolio value is above implementation cost."
+Portfolio ROI,2026-02,35,100,%,ASOC,"ROI improving as reusable assets increase."
+Portfolio ROI,2026-03,47,100,%,ASOC,"Further scaling required to reach target."

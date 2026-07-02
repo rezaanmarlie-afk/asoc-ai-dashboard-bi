@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Benefits Management Suite · ASOC AI Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+  <style>
+    .suite-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 18px}.suite-tab{border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);border-radius:999px;padding:10px 14px;cursor:pointer}.suite-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .tab-pane{display:none}.tab-pane.active{display:block}.suite-filters,.register-grid{display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:12px;align-items:end}.register-grid .wide{grid-column:1/-1}.register-grid .half{grid-column:span 2}
+    .admin-input,.bi-admin-table input,.bi-admin-table select,.bi-admin-table textarea,.register-grid input,.register-grid select,.register-grid textarea,.suite-filters select{width:100%;box-sizing:border-box;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:9px}.bi-admin-table textarea{min-width:240px;min-height:42px;resize:vertical}.register-grid textarea{min-height:74px;resize:vertical}.bi-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.muted-note{opacity:.75;font-size:.9rem;margin-top:6px}.admin-kpis{display:grid;grid-template-columns:repeat(4,minmax(170px,1fr));gap:14px;margin-bottom:16px}.admin-kpi{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(255,255,255,.03)}.admin-kpi b{font-size:1.5rem}.pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:.82rem;gap:5px}.pill.approved{background:rgba(0,160,110,.16)}.pill.risk{background:rgba(220,60,60,.16)}.small-table td,.small-table th{font-size:.88rem;white-space:nowrap}.row-controls{display:flex;gap:6px;flex-direction:column}.section-note{border-left:4px solid var(--accent);padding:12px 14px;background:rgba(255,255,255,.035);border-radius:12px;margin:12px 0}.sticky-actions{position:sticky;left:0;background:var(--panel);z-index:2}.table-tools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}.searchbox{max-width:320px}.evidence-card{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.evidence-card div{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.025)}.admin-guide{border:1px solid var(--line);border-radius:18px;padding:14px;background:linear-gradient(135deg,rgba(230,0,0,.10),rgba(255,255,255,.025));margin-bottom:14px}.uc-field{min-width:260px}.readonly-note{font-size:.78rem;opacity:.7;margin-top:3px}.domain-locked{border-color:rgba(230,0,0,.35)!important}
+    @media(max-width:1100px){.suite-filters,.register-grid,.admin-kpis,.evidence-card{grid-template-columns:1fr 1fr}.register-grid .half{grid-column:span 1}}@media(max-width:680px){.suite-filters,.register-grid,.admin-kpis,.evidence-card{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <div class="eyebrow">Vodacom ASOC · Benefits Management Suite</div>
+    <h1>BI Admin</h1>
+    <p>Update ASOC benefit records by domain and AI use case. Domains are inherited from the dashboard use-case register.</p>
+  </div>
+  <div class="nav">
+    <a href="/">Dashboard</a><a href="/benefits-intelligence">Benefits Intelligence</a><a href="/admin/use-cases">Manage Use Cases</a><a href="/admin/benefits-intelligence/export">Export BI CSV</a><button type="button" id="themeToggle" class="theme-toggle">Light mode</button><span class="badge">{{ user.display_name or user.username }}</span><a href="/logout">Logout</a>
+  </div>
+</header>
+<main>
+<section class="admin-guide"><b>How this works:</b> Select an AI use case first. The BI record is then linked back to the dashboard use-case register and inherits the correct ASOC domain, sponsor and product owner. Business Unit remains ASOC; domain reporting is shown per dashboard domain.</section>
+<section class="admin-kpis">
+  <div class="admin-kpi"><span>Total records</span><br><b>{{ data.narrative.row_count }}</b><p>Filtered benefit history records</p></div>
+  <div class="admin-kpi"><span>Improving benefits</span><br><b>{{ data.narrative.headline.split(' ')[0] }}</b><p>{{ data.narrative.headline }}</p></div>
+  <div class="admin-kpi"><span>Approved records</span><br><b>{{ data.narrative.approved_rows }}</b><p>Rows with approved status</p></div>
+  <div class="admin-kpi"><span>Financial value</span><br><b>{{ data.narrative.total_actual }}</b><p>Latest filtered financial benefits</p></div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Area filters</h2><span>users update their own area</span></div>
+  <form class="suite-filters" method="get" action="/admin/benefits-intelligence">
+    <div><label>Business unit</label><select name="business_unit"><option value="">All</option>{% for o in options.business_units %}<option value="{{ o }}" {% if filters.business_unit==o %}selected{% endif %}>{{ o }}</option>{% endfor %}</select></div>
+    <div><label>Domain</label><select name="domain"><option value="">All</option>{% for o in options.domains %}<option value="{{ o }}" {% if filters.domain==o %}selected{% endif %}>{{ o }}</option>{% endfor %}</select></div>
+    <div><label>Benefit</label><select name="benefit"><option value="">All</option>{% for o in options.benefits %}<option value="{{ o }}" {% if filters.benefit==o %}selected{% endif %}>{{ o }}</option>{% endfor %}</select></div>
+    <div><label>Owner</label><select name="owner"><option value="">All</option>{% for o in options.owners %}<option value="{{ o }}" {% if filters.owner==o %}selected{% endif %}>{{ o }}</option>{% endfor %}</select></div>
+    <div><label>Status</label><select name="status"><option value="">All</option>{% for o in options.statuses %}<option value="{{ o }}" {% if filters.status==o %}selected{% endif %}>{{ o }}</option>{% endfor %}</select></div>
+    <div><label>Approval</label><select name="approval_status"><option value="">All</option>{% for o in options.approval_statuses %}<option value="{{ o }}" {% if filters.approval_status==o %}selected{% endif %}>{{ o }}</option>{% endfor %}</select></div>
+    <div><button type="submit">Apply filters</button></div><div><a class="btn secondary" href="/admin/benefits-intelligence">Reset</a></div>
+  </form>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Management workspace</h2><span>register · history · evidence · approvals</span></div>
+  <div class="suite-tabs">
+    <button class="suite-tab active" data-tab="register">Benefit Register</button><button class="suite-tab" data-tab="history">Benefit History</button><button class="suite-tab" data-tab="contributors">Contributors</button><button class="suite-tab" data-tab="evidence">Evidence</button><button class="suite-tab" data-tab="approvals">Approvals</button><button class="suite-tab" data-tab="import">Import / Export</button>
+  </div>
+
+  <div id="tab-register" class="tab-pane active">
+    <div class="section-note"><b>Benefit Register:</b> create or update a managed benefit with ownership, target, evidence source, financial owner and approval state.</div>
+    <form method="post" action="/admin/benefits-intelligence/save" class="register-grid">
+      <div><label>Benefit ID</label><input name="benefit_id" placeholder="BI-COST-001"/></div>
+      <div><label>Period</label><input name="period" list="periodOptions" required placeholder="2026-07"/></div>
+      <div><label>Benefit</label><select name="benefit" required>{% for opt in options.benefits %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select></div>
+      <div><label>Category</label><select name="benefit_category">{% for opt in options.benefit_categories %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select></div>
+      <div><label>Business Unit</label><select name="business_unit"><option value="ASOC">ASOC</option></select></div>
+      <div><label>Domain</label><select name="domain" data-autofill="domain-new" class="domain-locked">{% for opt in options.domains %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select><div class="readonly-note">Aligned to dashboard domain.</div></div>
+      <div><label>Strategic Theme</label><select name="strategic_theme">{% for opt in options.themes %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select></div>
+      <div class="half"><label>Linked AI Use Case</label><select name="ai_use_case_id" class="usecase-select uc-field" data-scope="new"><option value="">Select dashboard use case</option>{% for uc in options.use_case_options %}<option value="{{ uc.id }}" data-name="{{ uc.name }}" data-domain="{{ uc.domain }}" data-sponsor="{{ uc.sponsor }}" data-owner="{{ uc.owner }}">{{ uc.id }} — {{ uc.name }} · {{ uc.domain }}</option>{% endfor %}</select><div class="readonly-note">Domain, sponsor and owner come from the dashboard use-case register.</div></div>
+      <div class="half"><label>AI Use Case Name</label><input name="ai_use_case_name" data-autofill="name-new" readonly/></div>
+      <div><label>Executive Sponsor</label><select name="executive_sponsor" data-autofill="sponsor-new">{% for opt in options.sponsors %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select></div>
+      <div><label>Benefit Owner</label><select name="owner" data-autofill="owner-new">{% for opt in options.owners %}<option value="{{ opt }}" {% if opt == (user.display_name or user.username) %}selected{% endif %}>{{ opt }}</option>{% endfor %}</select></div>
+      <div><label>Product Owner</label><select name="product_owner" data-autofill="product-owner-new">{% for opt in options.owners %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select></div>
+      <div><label>Financial Owner</label><select name="financial_owner">{% for opt in options.financial_owners %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select></div>
+      <div><label>Status</label><select name="status">{% for opt in options.statuses %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select></div>
+      <div><label>Stage</label><select name="stage">{% for opt in options.stages %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select></div>
+      <div><label>Maturity</label><select name="maturity">{% for opt in options.maturities %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select></div>
+      <div><label>Approval Status</label><select name="approval_status">{% for opt in options.approval_statuses %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}</select></div>
+      <div><label>Actual</label><input name="actual" type="number" step="0.1" value="0"/></div>
+      <div><label>Target</label><input name="target" type="number" step="0.1" value="0"/></div>
+      <div><label>FY Target</label><input name="fy_target" type="number" step="0.1" value="0"/></div>
+      <div><label>Unit</label><select name="unit">{% for opt in options.units %}<option value="{{ opt }}">{{ opt or 'none' }}</option>{% endfor %}</select></div>
+      <div><label>Confidence %</label><input name="confidence" type="number" step="1" min="0" max="100" value="80"/></div>
+      <div><label>Data Source</label><input name="data_source" placeholder="UIM / Helix / KPI report"/></div>
+      <div><label>Evidence</label><input name="evidence" placeholder="Dashboard link / report name"/></div>
+      <div><label>Contributing Systems</label><input name="contributing_systems" placeholder="UIM, UTIA, IBM NOI"/></div>
+      <div class="half"><label>Risks</label><textarea name="risks" placeholder="What may prevent realisation?"></textarea></div>
+      <div class="half"><label>Opportunities</label><textarea name="opportunities" placeholder="Where can this benefit be scaled?"></textarea></div>
+      <div class="wide"><label>Commentary</label><textarea name="commentary" placeholder="Explain what changed, why it changed, and what decision is required."></textarea></div>
+      <div class="wide"><button type="submit">Save benefit record</button></div>
+    </form>
+  </div>
+
+  <div id="tab-history" class="tab-pane">
+    <div class="table-tools"><div><h3>Editable benefit history</h3><p class="muted-note">Inline edit actuals, targets, owners, status, evidence and commentary.</p></div><input class="admin-input searchbox" id="historySearch" placeholder="Search rows..."/></div>
+    <div class="table-wrap"><table class="bi-admin-table small-table" id="historyTable"><thead><tr><th class="sticky-actions">Actions</th><th>Benefit</th><th>Period</th><th>Actual</th><th>Target</th><th>Unit</th><th>BU</th><th>Domain</th><th>Use Case</th><th>Owner</th><th>Status</th><th>Approval</th><th>Confidence</th><th>Commentary</th></tr></thead><tbody>
+      {% for r in rows %}{% set fid = 'birow' ~ loop.index %}<tr>
+        <td class="sticky-actions"><form id="{{ fid }}" method="post" action="/admin/benefits-intelligence/save"><input type="hidden" name="original_benefit" value="{{ r.benefit }}"/><input type="hidden" name="original_period" value="{{ r.period }}"/><input type="hidden" name="original_ai_use_case_id" value="{{ r.ai_use_case_id }}"/></form><form method="post" action="/admin/benefits-intelligence/delete" style="display:inline"><input type="hidden" name="benefit" value="{{ r.benefit }}"/><input type="hidden" name="period" value="{{ r.period }}"/><input type="hidden" name="ai_use_case_id" value="{{ r.ai_use_case_id }}"/><div class="row-controls"><button type="submit" form="{{ fid }}">Save</button><button type="submit" onclick="return confirm('Delete {{ r.benefit }} / {{ r.period }}?')">Delete</button></div></form></td>
+        <td><select name="benefit" form="{{ fid }}">{% for opt in options.benefits %}<option value="{{ opt }}" {% if opt == r.benefit %}selected{% endif %}>{{ opt }}</option>{% endfor %}</select></td>
+        <td><input name="period" form="{{ fid }}" list="periodOptions" value="{{ r.period }}" required/></td><td><input name="actual" form="{{ fid }}" type="number" step="0.1" value="{{ r.actual }}"/></td><td><input name="target" form="{{ fid }}" type="number" step="0.1" value="{{ r.target }}"/></td><td><select name="unit" form="{{ fid }}">{% for opt in options.units %}<option value="{{ opt }}" {% if opt == r.unit %}selected{% endif %}>{{ opt }}</option>{% endfor %}</select></td>
+        <td><select name="business_unit" form="{{ fid }}"><option value="ASOC" selected>ASOC</option></select></td><td><select name="domain" form="{{ fid }}" class="domain-locked" data-autofill="domain-{{ loop.index }}">{% for opt in options.domains %}<option value="{{ opt }}" {% if opt == r.domain %}selected{% endif %}>{{ opt }}</option>{% endfor %}</select></td><td><select name="ai_use_case_id" form="{{ fid }}" class="usecase-select uc-field" data-scope="{{ loop.index }}"><option value="">Unlinked</option>{% for uc in options.use_case_options %}<option value="{{ uc.id }}" data-name="{{ uc.name }}" data-domain="{{ uc.domain }}" data-sponsor="{{ uc.sponsor }}" data-owner="{{ uc.owner }}" {% if uc.id == r.ai_use_case_id %}selected{% endif %}>{{ uc.id }} — {{ uc.name }}</option>{% endfor %}</select><input type="hidden" name="ai_use_case_name" form="{{ fid }}" value="{{ r.ai_use_case_name }}" data-autofill="name-{{ loop.index }}"/></td><td><select name="owner" form="{{ fid }}" data-autofill="owner-{{ loop.index }}">{% for opt in options.owners %}<option value="{{ opt }}" {% if opt == r.owner %}selected{% endif %}>{{ opt }}</option>{% endfor %}</select></td><td><select name="status" form="{{ fid }}">{% for opt in options.statuses %}<option value="{{ opt }}" {% if opt == r.status %}selected{% endif %}>{{ opt }}</option>{% endfor %}</select></td><td><select name="approval_status" form="{{ fid }}">{% for opt in options.approval_statuses %}<option value="{{ opt }}" {% if opt == r.approval_status %}selected{% endif %}>{{ opt }}</option>{% endfor %}</select></td><td><input name="confidence" form="{{ fid }}" type="number" step="any" inputmode="decimal" min="0" max="100" value="{{ r.confidence }}"/></td><td><textarea name="commentary" form="{{ fid }}">{{ r.commentary }}</textarea></td>
+      </tr>{% else %}<tr><td colspan="14">No benefit history captured yet.</td></tr>{% endfor %}
+    </tbody></table></div>
+  </div>
+
+  <div id="tab-contributors" class="tab-pane"><div class="section-note">Benefits are attributed to exact dashboard AI use cases. Domain, sponsor and product owner are inherited from the selected use case so BI stays aligned to the main dashboard.</div><div class="table-wrap"><table><thead><tr><th>Benefit</th><th>Use Case</th><th>Systems</th><th>AI Models</th><th>Value</th><th>Owner</th></tr></thead><tbody>{% for r in rows %}<tr><td>{{ r.benefit }}</td><td>{{ r.ai_use_case_id }} {{ r.ai_use_case_name }}</td><td>{{ r.contributing_systems }}</td><td>{{ r.contributing_ai_models }}</td><td>{{ r.actual }} {{ r.unit }}</td><td>{{ r.owner }}</td></tr>{% endfor %}</tbody></table></div></div>
+  <div id="tab-evidence" class="tab-pane"><div class="evidence-card"><div><b>Evidence capture</b><p>Use Data Source and Evidence to reference the report, dashboard, extract or KPI pack used to validate the benefit.</p></div><div><b>Traceability</b><p>Each benefit row links ownership, systems, source, commentary and approval status.</p></div><div><b>Audit</b><p>Save, delete and import events are written to the existing dashboard audit log.</p></div></div><div class="table-wrap"><table><thead><tr><th>Benefit</th><th>Period</th><th>Data source</th><th>Evidence</th><th>Last updated</th><th>Approved by</th></tr></thead><tbody>{% for r in rows %}<tr><td>{{ r.benefit }}</td><td>{{ r.period }}</td><td>{{ r.data_source }}</td><td>{{ r.evidence }}</td><td>{{ r.last_updated }}</td><td>{{ r.approved_by }}</td></tr>{% endfor %}</tbody></table></div></div>
+  <div id="tab-approvals" class="tab-pane"><div class="section-note">Approval state allows owners to update data while Finance / Executive approval can be tracked before benefits are treated as final.</div><div class="table-wrap"><table><thead><tr><th>Benefit</th><th>Period</th><th>Owner</th><th>Financial owner</th><th>Approval</th><th>Approved by</th><th>Risk</th></tr></thead><tbody>{% for r in rows %}<tr><td>{{ r.benefit }}</td><td>{{ r.period }}</td><td>{{ r.owner }}</td><td>{{ r.financial_owner }}</td><td><span class="pill {% if 'Approved' in r.approval_status %}approved{% endif %}">{{ r.approval_status }}</span></td><td>{{ r.approved_by }}</td><td>{{ r.risks }}</td></tr>{% endfor %}</tbody></table></div></div>
+  <div id="tab-import" class="tab-pane"><h3>Import enriched BI CSV</h3><p class="help">Supports all enriched fields. Existing rows are merged by benefit + period + AI use case ID.</p><form method="post" action="/admin/benefits-intelligence/import" enctype="multipart/form-data" class="toolbar"><input type="file" name="file" accept=".csv" required/><button type="submit">Import BI CSV</button><a class="btn secondary" href="/admin/benefits-intelligence/export">Download current BI CSV</a></form></div>
+</section>
+</main>
+<datalist id="periodOptions">{% for opt in options.periods %}<option value="{{ opt }}"></option>{% endfor %}</datalist><datalist id="useCaseIdOptions">{% for opt in options.use_case_ids %}<option value="{{ opt }}"></option>{% endfor %}</datalist><datalist id="useCaseNameOptions">{% for opt in options.use_case_names %}<option value="{{ opt }}"></option>{% endfor %}</datalist>
+<script>
+(function(){const root=document.body,btn=document.getElementById('themeToggle'),saved=localStorage.getItem('asocTheme')||'dark';function setTheme(theme){root.dataset.theme=theme;localStorage.setItem('asocTheme',theme);if(btn)btn.textContent=theme==='dark'?'Light mode':'Dark mode';}if(btn)btn.addEventListener('click',()=>setTheme(root.dataset.theme==='dark'?'light':'dark'));setTheme(saved);})();
+document.querySelectorAll('.suite-tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.suite-tab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('tab-'+btn.dataset.tab).classList.add('active');}));
+const search=document.getElementById('historySearch');if(search){search.addEventListener('input',()=>{const q=search.value.toLowerCase();document.querySelectorAll('#historyTable tbody tr').forEach(tr=>{tr.style.display=tr.innerText.toLowerCase().includes(q)?'':'none';});});}
+
+function setSelectValue(sel,value){if(!sel||!value)return;let found=false;[...sel.options].forEach(o=>{if(o.value===value){found=true;}});if(found)sel.value=value;}
+document.querySelectorAll('.usecase-select').forEach(sel=>{function sync(){const opt=sel.selectedOptions[0];if(!opt)return;const scope=sel.dataset.scope;const name=document.querySelector('[data-autofill="name-'+scope+'"]');const domain=document.querySelector('[data-autofill="domain-'+scope+'"]');const sponsor=document.querySelector('[data-autofill="sponsor-'+scope+'"]');const owner=document.querySelector('[data-autofill="owner-'+scope+'"]');const productOwner=document.querySelector('[data-autofill="product-owner-'+scope+'"]');if(name)name.value=opt.dataset.name||'';setSelectValue(domain,opt.dataset.domain||'');setSelectValue(sponsor,opt.dataset.sponsor||'');setSelectValue(owner,opt.dataset.owner||'');setSelectValue(productOwner,opt.dataset.owner||'');}sel.addEventListener('change',sync);sync();});
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+[
+  {
+    "benefit": "Annual benefits realised",
+    "period": "2026-01",
+    "actual": 2500000,
+    "target": 30000000,
+    "unit": "R",
+    "owner": "ASOC",
+    "commentary": "Initial realised value from AI portfolio."
+  },
+  {
+    "benefit": "Annual benefits realised",
+    "period": "2026-02",
+    "actual": 4200000,
+    "target": 30000000,
+    "unit": "R",
+    "owner": "ASOC",
+    "commentary": "Growth driven by automation adoption."
+  },
+  {
+    "benefit": "Annual benefits realised",
+    "period": "2026-03",
+    "actual": 6800000,
+    "target": 30000000,
+    "unit": "R",
+    "owner": "ASOC",
+    "commentary": "Additional production use cases added."
+  },
+  {
+    "benefit": "Average MTTR improvement",
+    "period": "2026-01",
+    "actual": 12,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "Initial impact from assisted diagnostics."
+  },
+  {
+    "benefit": "Average MTTR improvement",
+    "period": "2026-02",
+    "actual": 19,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "Incident triage is improving."
+  },
+  {
+    "benefit": "Average MTTR improvement",
+    "period": "2026-03",
+    "actual": 24,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "Trend positive but still below target."
+  },
+  {
+    "benefit": "Hours returned",
+    "period": "2026-01",
+    "actual": 800,
+    "target": 15000,
+    "unit": "hrs",
+    "owner": "ASOC",
+    "commentary": "Early productivity benefit captured."
+  },
+  {
+    "benefit": "Hours returned",
+    "period": "2026-02",
+    "actual": 1450,
+    "target": 15000,
+    "unit": "hrs",
+    "owner": "ASOC",
+    "commentary": "Manual effort reduction increasing."
+  },
+  {
+    "benefit": "Hours returned",
+    "period": "2026-03",
+    "actual": 2300,
+    "target": 15000,
+    "unit": "hrs",
+    "owner": "ASOC",
+    "commentary": "Automation reuse improving."
+  },
+  {
+    "benefit": "Portfolio ROI",
+    "period": "2026-01",
+    "actual": 18,
+    "target": 100,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "Portfolio value is above implementation cost."
+  },
+  {
+    "benefit": "Portfolio ROI",
+    "period": "2026-02",
+    "actual": 35,
+    "target": 100,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "ROI improving as reusable assets increase."
+  },
+  {
+    "benefit": "Portfolio ROI",
+    "period": "2026-03",
+    "actual": 47,
+    "target": 100,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "Further scaling required to reach target."
+  }
+]

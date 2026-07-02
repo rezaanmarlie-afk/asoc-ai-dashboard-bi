@@ -1,0 +1,920 @@
+[
+  {
+    "benefit": "AI Adoption",
+    "period": "2026-01",
+    "actual": 0,
+    "target": 85,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "AI Adoption tracked at 28 %; driven mainly by AI Adoption Programme. Trend remains positive."
+  },
+  {
+    "benefit": "AI Adoption",
+    "period": "2026-02",
+    "actual": 0,
+    "target": 85,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "AI Adoption tracked at 34 %; driven mainly by AI Adoption Programme. Trend remains positive."
+  },
+  {
+    "benefit": "AI Adoption",
+    "period": "2026-03",
+    "actual": 0,
+    "target": 85,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "AI Adoption tracked at 41 %; driven mainly by AI Adoption Programme. Trend remains positive."
+  },
+  {
+    "benefit": "AI Adoption",
+    "period": "2026-04",
+    "actual": 0,
+    "target": 85,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "AI Adoption tracked at 49 %; driven mainly by AI Adoption Programme. Trend remains positive."
+  },
+  {
+    "benefit": "AI Adoption",
+    "period": "2026-05",
+    "actual": 0,
+    "target": 85,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "AI Adoption tracked at 55 %; driven mainly by AI Adoption Programme. Trend remains positive."
+  },
+  {
+    "benefit": "AI Adoption",
+    "period": "2026-06",
+    "actual": 0,
+    "target": 85,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "AI Adoption tracked at 61 %; driven mainly by AI Adoption Programme. Trend remains positive."
+  },
+  {
+    "benefit": "AI Adoption",
+    "period": "2026-07",
+    "actual": 0,
+    "target": 85,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "AI Adoption tracked at 67 %; driven mainly by AI Adoption Programme. Trend remains positive."
+  },
+  {
+    "benefit": "AI Adoption",
+    "period": "2026-08",
+    "actual": 0,
+    "target": 85,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "AI Adoption tracked at 73 %; driven mainly by AI Adoption Programme. Trend remains positive."
+  },
+  {
+    "benefit": "AI Adoption",
+    "period": "2026-09",
+    "actual": 0,
+    "target": 85,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "AI Adoption tracked at 80 %; driven mainly by AI Adoption Programme. Trend remains positive."
+  },
+  {
+    "benefit": "Annual benefits realised",
+    "period": "2026-01",
+    "actual": 2500000,
+    "target": 30000000,
+    "unit": "R",
+    "owner": "ASOC",
+    "commentary": "Initial realised value from AI portfolio."
+  },
+  {
+    "benefit": "Annual benefits realised",
+    "period": "2026-02",
+    "actual": 4200000,
+    "target": 30000000,
+    "unit": "R",
+    "owner": "ASOC",
+    "commentary": "Growth driven by automation adoption."
+  },
+  {
+    "benefit": "Annual benefits realised",
+    "period": "2026-03",
+    "actual": 6800000,
+    "target": 30000000,
+    "unit": "R",
+    "owner": "ASOC",
+    "commentary": "Additional production use cases added."
+  },
+  {
+    "benefit": "Average MTTR improvement",
+    "period": "2026-01",
+    "actual": 12,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "Initial impact from assisted diagnostics."
+  },
+  {
+    "benefit": "Average MTTR improvement",
+    "period": "2026-02",
+    "actual": 19,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "Incident triage is improving."
+  },
+  {
+    "benefit": "Average MTTR improvement",
+    "period": "2026-03",
+    "actual": 24,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "Trend positive but still below target."
+  },
+  {
+    "benefit": "Cost Avoidance",
+    "period": "2026-01",
+    "actual": 0,
+    "target": 30.0,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cost Avoidance tracked at 12.5 ZARm; driven mainly by Fulfilment Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Cost Avoidance",
+    "period": "2026-02",
+    "actual": 0,
+    "target": 30.0,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cost Avoidance tracked at 14.2 ZARm; driven mainly by Fulfilment Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Cost Avoidance",
+    "period": "2026-03",
+    "actual": 0,
+    "target": 30.0,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cost Avoidance tracked at 16.8 ZARm; driven mainly by Fulfilment Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Cost Avoidance",
+    "period": "2026-04",
+    "actual": 0,
+    "target": 30.0,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cost Avoidance tracked at 19.4 ZARm; driven mainly by Fulfilment Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Cost Avoidance",
+    "period": "2026-05",
+    "actual": 0,
+    "target": 30.0,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cost Avoidance tracked at 22.1 ZARm; driven mainly by Fulfilment Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Cost Avoidance",
+    "period": "2026-06",
+    "actual": 0,
+    "target": 30.0,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cost Avoidance tracked at 24.8 ZARm; driven mainly by Fulfilment Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Cost Avoidance",
+    "period": "2026-07",
+    "actual": 0,
+    "target": 30.0,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cost Avoidance tracked at 27.2 ZARm; driven mainly by Fulfilment Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Cost Avoidance",
+    "period": "2026-08",
+    "actual": 0,
+    "target": 30.0,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cost Avoidance tracked at 29.5 ZARm; driven mainly by Fulfilment Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Cost Avoidance",
+    "period": "2026-09",
+    "actual": 0,
+    "target": 30.0,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cost Avoidance tracked at 32.0 ZARm; driven mainly by Fulfilment Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Customer Experience",
+    "period": "2026-01",
+    "actual": 0,
+    "target": 20,
+    "unit": "NPS",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Customer Experience tracked at 5 NPS; driven mainly by Customer Sentiment AI. Trend remains positive."
+  },
+  {
+    "benefit": "Customer Experience",
+    "period": "2026-02",
+    "actual": 0,
+    "target": 20,
+    "unit": "NPS",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Customer Experience tracked at 7 NPS; driven mainly by Customer Sentiment AI. Trend remains positive."
+  },
+  {
+    "benefit": "Customer Experience",
+    "period": "2026-03",
+    "actual": 0,
+    "target": 20,
+    "unit": "NPS",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Customer Experience tracked at 9 NPS; driven mainly by Customer Sentiment AI. Trend remains positive."
+  },
+  {
+    "benefit": "Customer Experience",
+    "period": "2026-04",
+    "actual": 0,
+    "target": 20,
+    "unit": "NPS",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Customer Experience tracked at 11 NPS; driven mainly by Customer Sentiment AI. Trend remains positive."
+  },
+  {
+    "benefit": "Customer Experience",
+    "period": "2026-05",
+    "actual": 0,
+    "target": 20,
+    "unit": "NPS",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Customer Experience tracked at 13 NPS; driven mainly by Customer Sentiment AI. Trend remains positive."
+  },
+  {
+    "benefit": "Customer Experience",
+    "period": "2026-06",
+    "actual": 0,
+    "target": 20,
+    "unit": "NPS",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Customer Experience tracked at 15 NPS; driven mainly by Customer Sentiment AI. Trend remains positive."
+  },
+  {
+    "benefit": "Customer Experience",
+    "period": "2026-07",
+    "actual": 0,
+    "target": 20,
+    "unit": "NPS",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Customer Experience tracked at 17 NPS; driven mainly by Customer Sentiment AI. Trend remains positive."
+  },
+  {
+    "benefit": "Customer Experience",
+    "period": "2026-08",
+    "actual": 0,
+    "target": 20,
+    "unit": "NPS",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Customer Experience tracked at 18 NPS; driven mainly by Customer Sentiment AI. Trend remains positive."
+  },
+  {
+    "benefit": "Customer Experience",
+    "period": "2026-09",
+    "actual": 0,
+    "target": 20,
+    "unit": "NPS",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Customer Experience tracked at 21 NPS; driven mainly by Customer Sentiment AI. Trend remains positive."
+  },
+  {
+    "benefit": "Cycle Time Reduction",
+    "period": "2026-01",
+    "actual": 0,
+    "target": 40,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cycle Time Reduction tracked at 8 %; driven mainly by Demand Triage AI. Trend remains positive."
+  },
+  {
+    "benefit": "Cycle Time Reduction",
+    "period": "2026-02",
+    "actual": 0,
+    "target": 40,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cycle Time Reduction tracked at 11 %; driven mainly by Demand Triage AI. Trend remains positive."
+  },
+  {
+    "benefit": "Cycle Time Reduction",
+    "period": "2026-03",
+    "actual": 0,
+    "target": 40,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cycle Time Reduction tracked at 15 %; driven mainly by Demand Triage AI. Trend remains positive."
+  },
+  {
+    "benefit": "Cycle Time Reduction",
+    "period": "2026-04",
+    "actual": 0,
+    "target": 40,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cycle Time Reduction tracked at 19 %; driven mainly by Demand Triage AI. Trend remains positive."
+  },
+  {
+    "benefit": "Cycle Time Reduction",
+    "period": "2026-05",
+    "actual": 0,
+    "target": 40,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cycle Time Reduction tracked at 24 %; driven mainly by Demand Triage AI. Trend remains positive."
+  },
+  {
+    "benefit": "Cycle Time Reduction",
+    "period": "2026-06",
+    "actual": 0,
+    "target": 40,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cycle Time Reduction tracked at 28 %; driven mainly by Demand Triage AI. Trend remains positive."
+  },
+  {
+    "benefit": "Cycle Time Reduction",
+    "period": "2026-07",
+    "actual": 0,
+    "target": 40,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cycle Time Reduction tracked at 32 %; driven mainly by Demand Triage AI. Trend remains positive."
+  },
+  {
+    "benefit": "Cycle Time Reduction",
+    "period": "2026-08",
+    "actual": 0,
+    "target": 40,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cycle Time Reduction tracked at 36 %; driven mainly by Demand Triage AI. Trend remains positive."
+  },
+  {
+    "benefit": "Cycle Time Reduction",
+    "period": "2026-09",
+    "actual": 0,
+    "target": 40,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Cycle Time Reduction tracked at 41 %; driven mainly by Demand Triage AI. Trend remains positive."
+  },
+  {
+    "benefit": "Hours returned",
+    "period": "2026-01",
+    "actual": 800,
+    "target": 15000,
+    "unit": "hrs",
+    "owner": "ASOC",
+    "commentary": "Early productivity benefit captured."
+  },
+  {
+    "benefit": "Hours returned",
+    "period": "2026-02",
+    "actual": 1450,
+    "target": 15000,
+    "unit": "hrs",
+    "owner": "ASOC",
+    "commentary": "Manual effort reduction increasing."
+  },
+  {
+    "benefit": "Hours returned",
+    "period": "2026-03",
+    "actual": 2300,
+    "target": 15000,
+    "unit": "hrs",
+    "owner": "ASOC",
+    "commentary": "Automation reuse improving."
+  },
+  {
+    "benefit": "Incident Reduction",
+    "period": "2026-01",
+    "actual": 0,
+    "target": 35,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Incident Reduction tracked at 9 %; driven mainly by Predictive Assurance. Trend remains positive."
+  },
+  {
+    "benefit": "Incident Reduction",
+    "period": "2026-02",
+    "actual": 0,
+    "target": 35,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Incident Reduction tracked at 12 %; driven mainly by Predictive Assurance. Trend remains positive."
+  },
+  {
+    "benefit": "Incident Reduction",
+    "period": "2026-03",
+    "actual": 0,
+    "target": 35,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Incident Reduction tracked at 16 %; driven mainly by Predictive Assurance. Trend remains positive."
+  },
+  {
+    "benefit": "Incident Reduction",
+    "period": "2026-04",
+    "actual": 0,
+    "target": 35,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Incident Reduction tracked at 20 %; driven mainly by Predictive Assurance. Trend remains positive."
+  },
+  {
+    "benefit": "Incident Reduction",
+    "period": "2026-05",
+    "actual": 0,
+    "target": 35,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Incident Reduction tracked at 24 %; driven mainly by Predictive Assurance. Trend remains positive."
+  },
+  {
+    "benefit": "Incident Reduction",
+    "period": "2026-06",
+    "actual": 0,
+    "target": 35,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Incident Reduction tracked at 27 %; driven mainly by Predictive Assurance. Trend remains positive."
+  },
+  {
+    "benefit": "Incident Reduction",
+    "period": "2026-07",
+    "actual": 0,
+    "target": 35,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Incident Reduction tracked at 31 %; driven mainly by Predictive Assurance. Trend remains positive."
+  },
+  {
+    "benefit": "Incident Reduction",
+    "period": "2026-08",
+    "actual": 0,
+    "target": 35,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Incident Reduction tracked at 32 %; driven mainly by Predictive Assurance. Trend remains positive."
+  },
+  {
+    "benefit": "Incident Reduction",
+    "period": "2026-09",
+    "actual": 0,
+    "target": 35,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Incident Reduction tracked at 34 %; driven mainly by Predictive Assurance. Trend remains positive."
+  },
+  {
+    "benefit": "MTTR Improvement",
+    "period": "2026-01",
+    "actual": 0,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "MTTR Improvement tracked at 18 %; driven mainly by Incident Intelligence. Trend remains positive."
+  },
+  {
+    "benefit": "MTTR Improvement",
+    "period": "2026-02",
+    "actual": 0,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "MTTR Improvement tracked at 22 %; driven mainly by Incident Intelligence. Trend remains positive."
+  },
+  {
+    "benefit": "MTTR Improvement",
+    "period": "2026-03",
+    "actual": 0,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "MTTR Improvement tracked at 27 %; driven mainly by Incident Intelligence. Trend remains positive."
+  },
+  {
+    "benefit": "MTTR Improvement",
+    "period": "2026-04",
+    "actual": 0,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "MTTR Improvement tracked at 31 %; driven mainly by Incident Intelligence. Trend remains positive."
+  },
+  {
+    "benefit": "MTTR Improvement",
+    "period": "2026-05",
+    "actual": 0,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "MTTR Improvement tracked at 36 %; driven mainly by Incident Intelligence. Trend remains positive."
+  },
+  {
+    "benefit": "MTTR Improvement",
+    "period": "2026-06",
+    "actual": 0,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "MTTR Improvement tracked at 39 %; driven mainly by Incident Intelligence. Trend remains positive."
+  },
+  {
+    "benefit": "MTTR Improvement",
+    "period": "2026-07",
+    "actual": 0,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "MTTR Improvement tracked at 43 %; driven mainly by Incident Intelligence. Trend remains positive."
+  },
+  {
+    "benefit": "MTTR Improvement",
+    "period": "2026-08",
+    "actual": 0,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "MTTR Improvement tracked at 45 %; driven mainly by Incident Intelligence. Trend remains positive."
+  },
+  {
+    "benefit": "MTTR Improvement",
+    "period": "2026-09",
+    "actual": 0,
+    "target": 50,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "MTTR Improvement tracked at 48 %; driven mainly by Incident Intelligence. Trend remains positive."
+  },
+  {
+    "benefit": "Manual Tasks Eliminated",
+    "period": "2026-01",
+    "actual": 0,
+    "target": 220,
+    "unit": "count",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Manual Tasks Eliminated tracked at 65 count; driven mainly by Workflow Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Manual Tasks Eliminated",
+    "period": "2026-02",
+    "actual": 0,
+    "target": 220,
+    "unit": "count",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Manual Tasks Eliminated tracked at 82 count; driven mainly by Workflow Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Manual Tasks Eliminated",
+    "period": "2026-03",
+    "actual": 0,
+    "target": 220,
+    "unit": "count",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Manual Tasks Eliminated tracked at 101 count; driven mainly by Workflow Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Manual Tasks Eliminated",
+    "period": "2026-04",
+    "actual": 0,
+    "target": 220,
+    "unit": "count",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Manual Tasks Eliminated tracked at 126 count; driven mainly by Workflow Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Manual Tasks Eliminated",
+    "period": "2026-05",
+    "actual": 0,
+    "target": 220,
+    "unit": "count",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Manual Tasks Eliminated tracked at 148 count; driven mainly by Workflow Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Manual Tasks Eliminated",
+    "period": "2026-06",
+    "actual": 0,
+    "target": 220,
+    "unit": "count",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Manual Tasks Eliminated tracked at 169 count; driven mainly by Workflow Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Manual Tasks Eliminated",
+    "period": "2026-07",
+    "actual": 0,
+    "target": 220,
+    "unit": "count",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Manual Tasks Eliminated tracked at 186 count; driven mainly by Workflow Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Manual Tasks Eliminated",
+    "period": "2026-08",
+    "actual": 0,
+    "target": 220,
+    "unit": "count",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Manual Tasks Eliminated tracked at 204 count; driven mainly by Workflow Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Manual Tasks Eliminated",
+    "period": "2026-09",
+    "actual": 0,
+    "target": 220,
+    "unit": "count",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Manual Tasks Eliminated tracked at 226 count; driven mainly by Workflow Automation. Trend remains positive."
+  },
+  {
+    "benefit": "Portfolio ROI",
+    "period": "2026-01",
+    "actual": 18,
+    "target": 100,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "Portfolio value is above implementation cost."
+  },
+  {
+    "benefit": "Portfolio ROI",
+    "period": "2026-02",
+    "actual": 35,
+    "target": 100,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "ROI improving as reusable assets increase."
+  },
+  {
+    "benefit": "Portfolio ROI",
+    "period": "2026-03",
+    "actual": 47,
+    "target": 100,
+    "unit": "%",
+    "owner": "ASOC",
+    "commentary": "Further scaling required to reach target."
+  },
+  {
+    "benefit": "Productivity Hours Saved",
+    "period": "2026-01",
+    "actual": 0,
+    "target": 15000,
+    "unit": "hours",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Productivity Hours Saved tracked at 5200 hours; driven mainly by AI Copilot. Trend remains positive."
+  },
+  {
+    "benefit": "Productivity Hours Saved",
+    "period": "2026-02",
+    "actual": 0,
+    "target": 15000,
+    "unit": "hours",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Productivity Hours Saved tracked at 6100 hours; driven mainly by AI Copilot. Trend remains positive."
+  },
+  {
+    "benefit": "Productivity Hours Saved",
+    "period": "2026-03",
+    "actual": 0,
+    "target": 15000,
+    "unit": "hours",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Productivity Hours Saved tracked at 7200 hours; driven mainly by AI Copilot. Trend remains positive."
+  },
+  {
+    "benefit": "Productivity Hours Saved",
+    "period": "2026-04",
+    "actual": 0,
+    "target": 15000,
+    "unit": "hours",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Productivity Hours Saved tracked at 8350 hours; driven mainly by AI Copilot. Trend remains positive."
+  },
+  {
+    "benefit": "Productivity Hours Saved",
+    "period": "2026-05",
+    "actual": 0,
+    "target": 15000,
+    "unit": "hours",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Productivity Hours Saved tracked at 9800 hours; driven mainly by AI Copilot. Trend remains positive."
+  },
+  {
+    "benefit": "Productivity Hours Saved",
+    "period": "2026-06",
+    "actual": 0,
+    "target": 15000,
+    "unit": "hours",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Productivity Hours Saved tracked at 11250 hours; driven mainly by AI Copilot. Trend remains positive."
+  },
+  {
+    "benefit": "Productivity Hours Saved",
+    "period": "2026-07",
+    "actual": 0,
+    "target": 15000,
+    "unit": "hours",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Productivity Hours Saved tracked at 12540 hours; driven mainly by AI Copilot. Trend remains positive."
+  },
+  {
+    "benefit": "Productivity Hours Saved",
+    "period": "2026-08",
+    "actual": 0,
+    "target": 15000,
+    "unit": "hours",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Productivity Hours Saved tracked at 13800 hours; driven mainly by AI Copilot. Trend remains positive."
+  },
+  {
+    "benefit": "Productivity Hours Saved",
+    "period": "2026-09",
+    "actual": 0,
+    "target": 15000,
+    "unit": "hours",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Productivity Hours Saved tracked at 15150 hours; driven mainly by AI Copilot. Trend remains positive."
+  },
+  {
+    "benefit": "Reuse Score",
+    "period": "2026-01",
+    "actual": 0,
+    "target": 75,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Reuse Score tracked at 18 %; driven mainly by Reusable AI Services. Trend remains positive."
+  },
+  {
+    "benefit": "Reuse Score",
+    "period": "2026-02",
+    "actual": 0,
+    "target": 75,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Reuse Score tracked at 24 %; driven mainly by Reusable AI Services. Trend remains positive."
+  },
+  {
+    "benefit": "Reuse Score",
+    "period": "2026-03",
+    "actual": 0,
+    "target": 75,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Reuse Score tracked at 31 %; driven mainly by Reusable AI Services. Trend remains positive."
+  },
+  {
+    "benefit": "Reuse Score",
+    "period": "2026-04",
+    "actual": 0,
+    "target": 75,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Reuse Score tracked at 38 %; driven mainly by Reusable AI Services. Trend remains positive."
+  },
+  {
+    "benefit": "Reuse Score",
+    "period": "2026-05",
+    "actual": 0,
+    "target": 75,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Reuse Score tracked at 45 %; driven mainly by Reusable AI Services. Trend remains positive."
+  },
+  {
+    "benefit": "Reuse Score",
+    "period": "2026-06",
+    "actual": 0,
+    "target": 75,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Reuse Score tracked at 52 %; driven mainly by Reusable AI Services. Trend remains positive."
+  },
+  {
+    "benefit": "Reuse Score",
+    "period": "2026-07",
+    "actual": 0,
+    "target": 75,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Reuse Score tracked at 59 %; driven mainly by Reusable AI Services. Trend remains positive."
+  },
+  {
+    "benefit": "Reuse Score",
+    "period": "2026-08",
+    "actual": 0,
+    "target": 75,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Reuse Score tracked at 66 %; driven mainly by Reusable AI Services. Trend remains positive."
+  },
+  {
+    "benefit": "Reuse Score",
+    "period": "2026-09",
+    "actual": 0,
+    "target": 75,
+    "unit": "%",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Reuse Score tracked at 72 %; driven mainly by Reusable AI Services. Trend remains positive."
+  },
+  {
+    "benefit": "Revenue Protection",
+    "period": "2026-01",
+    "actual": 0,
+    "target": 20,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Revenue Protection tracked at 6.5 ZARm; driven mainly by Fraud & Revenue Assurance AI. Trend remains positive."
+  },
+  {
+    "benefit": "Revenue Protection",
+    "period": "2026-02",
+    "actual": 0,
+    "target": 20,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Revenue Protection tracked at 7.4 ZARm; driven mainly by Fraud & Revenue Assurance AI. Trend remains positive."
+  },
+  {
+    "benefit": "Revenue Protection",
+    "period": "2026-03",
+    "actual": 0,
+    "target": 20,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Revenue Protection tracked at 9.2 ZARm; driven mainly by Fraud & Revenue Assurance AI. Trend remains positive."
+  },
+  {
+    "benefit": "Revenue Protection",
+    "period": "2026-04",
+    "actual": 0,
+    "target": 20,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Revenue Protection tracked at 11.3 ZARm; driven mainly by Fraud & Revenue Assurance AI. Trend remains positive."
+  },
+  {
+    "benefit": "Revenue Protection",
+    "period": "2026-05",
+    "actual": 0,
+    "target": 20,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Revenue Protection tracked at 13.1 ZARm; driven mainly by Fraud & Revenue Assurance AI. Trend remains positive."
+  },
+  {
+    "benefit": "Revenue Protection",
+    "period": "2026-06",
+    "actual": 0,
+    "target": 20,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Revenue Protection tracked at 15.6 ZARm; driven mainly by Fraud & Revenue Assurance AI. Trend remains positive."
+  },
+  {
+    "benefit": "Revenue Protection",
+    "period": "2026-07",
+    "actual": 0,
+    "target": 20,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Revenue Protection tracked at 18.2 ZARm; driven mainly by Fraud & Revenue Assurance AI. Trend remains positive."
+  },
+  {
+    "benefit": "Revenue Protection",
+    "period": "2026-08",
+    "actual": 0,
+    "target": 20,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Revenue Protection tracked at 18.9 ZARm; driven mainly by Fraud & Revenue Assurance AI. Trend remains positive."
+  },
+  {
+    "benefit": "Revenue Protection",
+    "period": "2026-09",
+    "actual": 0,
+    "target": 20,
+    "unit": "ZARm",
+    "owner": "ASOC Portfolio Office",
+    "commentary": "Revenue Protection tracked at 20.5 ZARm; driven mainly by Fraud & Revenue Assurance AI. Trend remains positive."
+  }
+]

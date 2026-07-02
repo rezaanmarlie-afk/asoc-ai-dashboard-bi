@@ -1,0 +1,30 @@
+BI integration performed on aidash3-main root application.
+
+Preserved existing routes verified by import/test client:
+- /
+- /admin
+- /admin/use-cases
+- /export/csv
+- /import/csv
+- /export/pptx
+- /profile
+- /admin/users
+- /admin/security
+- /admin/audit
+- /admin/backups
+- /admin/system
+
+Added routes:
+- /benefits-intelligence
+- /admin/benefits-intelligence
+- /admin/benefits-intelligence/save
+- /admin/benefits-intelligence/delete
+- /admin/benefits-intelligence/import
+- /admin/benefits-intelligence/export
+
+Added files:
+- templates/benefits_intelligence.html
+- templates/benefits_intelligence_admin.html
+- benefits_intelligence_sample_import.csv
+
+Existing PPT export remains in app.py at /export/pptx and python-pptx remains in requirements.txt.

@@ -1,0 +1,32 @@
+{"ts": "2026-06-30T17:34:06Z", "actor": "admin", "action": "export_pptx", "entity_type": "export", "entity_id": "pptx", "ip": "127.0.0.1", "details": {"theme": "light"}}
+{"ts": "2026-06-30T17:37:04Z", "actor": "admin", "action": "csv_imported", "entity_type": "use_case", "entity_id": "bulk", "ip": "127.0.0.1", "details": {"imported": 20, "total": 20}}
+{"ts": "2026-06-30T17:39:38Z", "actor": "admin", "action": "export_csv", "entity_type": "export", "entity_id": "csv", "ip": "127.0.0.1", "details": {}}
+{"ts": "2026-06-30T17:40:10Z", "actor": "admin", "action": "benefit_history_import", "entity_type": "benefit", "entity_id": "csv", "ip": "127.0.0.1", "details": {"rows": 12}}
+{"ts": "2026-06-30T17:41:19Z", "actor": "admin", "action": "export_pptx", "entity_type": "export", "entity_id": "pptx", "ip": "127.0.0.1", "details": {"theme": "dark"}}
+{"ts": "2026-06-30T17:48:42Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "Summarise this portfolio for ExCo"}}
+{"ts": "2026-06-30T17:49:01Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "What are the biggest risks?"}}
+{"ts": "2026-06-30T17:49:05Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "Which use cases have the highest value?"}}
+{"ts": "2026-06-30T17:49:08Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "What should receive funding priority?"}}
+{"ts": "2026-06-30T17:49:28Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "which AI use case is the top performing use case?"}}
+{"ts": "2026-06-30T17:49:53Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "Which AI use case need improvement?"}}
+{"ts": "2026-06-30T17:49:59Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "Which AI use case need improvement?"}}
+{"ts": "2026-06-30T17:49:59Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "Which AI use case need improvement?"}}
+{"ts": "2026-06-30T17:50:00Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "Which AI use case need improvement?"}}
+{"ts": "2026-06-30T17:50:01Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "Which AI use case need improvement?"}}
+{"ts": "2026-06-30T17:50:50Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "portfolio-analyst-v1"}}
+{"ts": "2026-06-30T17:50:52Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "portfolio-analyst-v1"}}
+{"ts": "2026-06-30T17:51:07Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "what is the top performing AI use case"}}
+{"ts": "2026-06-30T17:51:26Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "What AI Use case need improvement?"}}
+{"ts": "2026-06-30T17:51:45Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "How many configuration management use cases exists"}}
+{"ts": "2026-06-30T17:51:46Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "How many configuration management use cases exists"}}
+{"ts": "2026-06-30T17:51:46Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "How many configuration management use cases exists"}}
+{"ts": "2026-06-30T17:51:47Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "How many configuration management use cases exists"}}
+{"ts": "2026-06-30T17:58:04Z", "actor": "admin", "action": "executive_ai_settings_reset", "entity_type": "ai", "entity_id": "settings", "ip": "127.0.0.1", "details": {}}
+{"ts": "2026-06-30T18:04:48Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "qwen3:14b"}}
+{"ts": "2026-06-30T18:05:14Z", "actor": "admin", "action": "executive_ai_question", "entity_type": "ai", "entity_id": "portfolio", "ip": "127.0.0.1", "details": {"question": "which use case is performing the best"}}
+{"ts": "2026-06-30T18:05:57Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "qwen3:14b"}}
+{"ts": "2026-06-30T18:06:04Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "qwen3:14b"}}
+{"ts": "2026-06-30T18:06:48Z", "actor": "admin", "action": "executive_ai_settings_save", "entity_type": "ai", "entity_id": "ollama", "ip": "127.0.0.1", "details": {"model": "qwen3:14b"}}
+{"ts": "2026-07-02T14:34:02Z", "actor": "admin", "action": "csv_imported", "entity_type": "use_case", "entity_id": "bulk", "ip": "127.0.0.1", "details": {"imported": 3, "total": 19}}
+{"ts": "2026-07-02T14:36:24Z", "actor": "admin", "action": "use_case_saved", "entity_type": "use_case", "entity_id": "OSS-002", "ip": "127.0.0.1", "details": {"domain": "OSS", "new": false}}
+{"ts": "2026-07-02T14:37:38Z", "actor": "admin", "action": "use_case_saved", "entity_type": "use_case", "entity_id": "OSS-001", "ip": "127.0.0.1", "details": {"domain": "OSS", "new": false}}
